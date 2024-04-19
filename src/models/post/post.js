@@ -21,12 +21,12 @@ const post = new mongoose.Schema({
     }],
     created_at : {
         type : Date,
-        defualt : new Date()
+        default : new Date()
     },
     likes : [{
             type : mongoose.Schema.Types.ObjectId,
             ref : "like",
-            defualt : []
+            default : []
         }],
     like_type : {
         type : String,
@@ -34,12 +34,12 @@ const post = new mongoose.Schema({
     },
     isSaved : {
         type : Boolean,
-        defualt : false
+        default : false
     },
     saved : [{
             type : mongoose.Schema.Types.ObjectId,
             ref : "user",
-            defualt : []
+            default : []
         }]
 })
 
