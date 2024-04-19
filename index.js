@@ -11,14 +11,14 @@ const Global = require("./src/middleware/error");
 const AutoDeleteNotifications = require("./src/middleware/autoDeleteNotifications");
 
 const cors = require("cors");
-<<<<<<< HEAD
+
 const corsOptions = {
     origin: "*",
     methods: "GET,PUT,POST,DELETE",
 };
 
-app.use(cors(corsOptions)); // أضف هذا في بداية الملف
-=======
+app.use(cors(corsOptions));
+
 app.use(cors({
     origin: "*",
     methods: "GET,PUT,POST,DELETE",
