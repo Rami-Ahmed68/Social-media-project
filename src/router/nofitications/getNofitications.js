@@ -20,7 +20,7 @@ router.get("/" , async ( req , res , next ) => {
         });
 
         // validate body data 
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // check if the body data has a problem return error with : ( message : ValidateError.error , status : 500 )
         if (ValidateError.error) {
@@ -30,12 +30,12 @@ router.get("/" , async ( req , res , next ) => {
         // extract the data from token
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid User Not Found ..." , 404))
         }
 
         // getting user by his id
-        const user = await User.findById(req.body.userId);
+        const user = await User.findById(req.query.userId);
 
         // check ig the user exists else return error with ( message : The user Not Found , status : 404 )
         if (!user) { 

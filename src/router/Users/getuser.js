@@ -20,7 +20,7 @@ router.get("/" , async (req , res , next) => {
             });
 
             // validate body data usein Schema
-            const ValidateError = Schema.validate(req.body);
+            const ValidateError = Schema.validate(req.query);
 
             // check if the body data has a problem
             if (ValidateError.error) {
@@ -31,12 +31,12 @@ router.get("/" , async (req , res , next) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
             // check if the user id equal the id in token
-            if (req.body.userId != Verify._id) {
+            if (req.query.userId != Verify._id) {
                 return next(new ApiErrors("Invalid User Data ..." , 403));
             }
 
             // getting the user by his id
-            const user = await User.findById(req.body.userId);
+            const user = await User.findById(req.query.userId);
 
             // check if the user exists
             if (!user) {
@@ -44,7 +44,7 @@ router.get("/" , async (req , res , next) => {
             }
 
             // getting the user target by his id
-            const userTarget = await User.findById(req.body.userTargetId).populate([
+            const userTarget = await User.findById(req.query.userTargetId).populate([
                 {
                     path: "friends",
                     select : "_id name avatar",

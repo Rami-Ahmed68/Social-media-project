@@ -19,7 +19,7 @@ router.get("/" , async ( req , res  , next ) => {
         });
 
         // validate body data using Schema
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // check if the body data has a problecm
         if (ValidateError.error) {
@@ -30,7 +30,7 @@ router.get("/" , async ( req , res  , next ) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if user id in body is equal the id in token or not
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid Authorization header format ..." , 404))
         }
 

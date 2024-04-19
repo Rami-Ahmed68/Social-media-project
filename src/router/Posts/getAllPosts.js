@@ -16,11 +16,13 @@ router.get("/" , async (req , res , next) => {
 
         // create a Schema
         const Schema = Joi.object().keys({
-            userId : Joi.string().required()
+            userId : Joi.string().required(),
+            page : Joi.number(),
+            limit : Joi.number()
         });
 
         // Validate body data using Schema
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // if the body data has a problem return error with : ( message : ValidateError.error , status : 400 )
         if (ValidateError.error) {
@@ -31,7 +33,7 @@ router.get("/" , async (req , res , next) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if the body userId equal id in token
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Ivalid User Data ..." , 401));
         }
 

@@ -20,7 +20,7 @@ router.get("/" , async (req , res , next) => {
         });
 
         // validate body data
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // check if the body data hasa problem
         if (ValidateError.error) {
@@ -31,12 +31,12 @@ router.get("/" , async (req , res , next) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if the user data equal id in token
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid User Data ..." , 401));
         }
 
         // getting the user by id
-        const user = await User.findById(req.body.userId);
+        const user = await User.findById(req.query.userId);
 
         // check if the user exists
         if (!user) {
@@ -44,7 +44,7 @@ router.get("/" , async (req , res , next) => {
         }
 
         // getting the post by id
-        const post = await Post.findById( req.body.postId ).populate({
+        const post = await Post.findById( req.query.postId ).populate({
             path : "likes",
             select : "_id user_id reaction_type"
         });

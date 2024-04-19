@@ -17,11 +17,13 @@ router.get("/" , async (req , res , next) => {
 
         // create a Schema 
         const Schema = Joi.object().keys({
-            userId : Joi.string().required()
+            userId : Joi.string().required(),
+            page : Joi.number(),
+            limit : Joi.number()
         });
 
         // validate body data usin the Schema 
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // check if the body data has any problem
         if (ValidateError.error) {
@@ -32,12 +34,12 @@ router.get("/" , async (req , res , next) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if the user id in body is equal the id in token or not
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid User Data ..." , 404));
         }
 
         // getting the user by his id
-        const user = await User.findById(req.body.userId);
+        const user = await User.findById(req.query.userId);
 
         // check if the user exists or not 
         if (!user) {
@@ -54,7 +56,7 @@ router.get("/" , async (req , res , next) => {
         const skip = ( page - 1 ) * limit;
 
         // getting the user's likes
-        const likes = await Like.find({ user_id: req.body.userId })
+        const likes = await Like.find({ user_id: req.query.userId })
         .skip(skip)
         .limit(limit)
         .populate(

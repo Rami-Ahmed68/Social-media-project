@@ -22,7 +22,7 @@ router.get("/" , async ( req , res , next ) => {
         });
 
         // Validate body data using Schema
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // check if the body data has any problem
         if (ValidateError.error) {
@@ -33,12 +33,12 @@ router.get("/" , async ( req , res , next ) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if the user id in body is equal the id in token or not
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid User Data ..." , 403));
         }
 
         // getting the user by id 
-        const user = await User.findById(req.body.userId);
+        const user = await User.findById(req.query.userId);
 
         // check if the user exists
         if (!user) {
@@ -47,7 +47,7 @@ router.get("/" , async ( req , res , next ) => {
 
 
         // getting the post by id
-        const post = await Post.findById(req.body.postId);
+        const post = await Post.findById(req.query.postId);
 
         // check if the post exists or not
         if (!post) {
@@ -55,7 +55,7 @@ router.get("/" , async ( req , res , next ) => {
         }
 
         // getting the post likes
-        const postLikes = await Like.find({ post_id : req.body.postId }).populate({
+        const postLikes = await Like.find({ post_id : req.query.postId }).populate({
             path : "user_id",
             select : "_id name avatar"
         });

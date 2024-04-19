@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Joi = require("joi");
-const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config({ path : "../../../confige.env" });
 
@@ -20,21 +19,25 @@ router.get("/" , async (req , res , next) => {
         // create a Schema to validate body data
         const Schema = Joi.object().keys({
             postId : Joi.string().required(),
-            userId : Joi.string().required()
+            userId : Joi.string().required(),
+            page : Joi.number(),
+            limit : Joi.number()
         });
 
         // validate a body data
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         if (ValidateError.error) {
             return next(new ApiErrors(ValidateError.error , 500));
         }
 
+        console.log(req.query);
+
         // extract the data from token
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if the user id in body is equal the id in token 
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid USer Data ..." , 403))
         }
 
@@ -47,7 +50,7 @@ router.get("/" , async (req , res , next) => {
         }
 
         // check if the post exists 
-        const post = await Post.findById(req.body.postId);
+        const post = await Post.findById(req.query.postId);
 
         if (!post) {
             return next(new ApiErrors("Invalid Post Not Found ..." , 404));
@@ -63,7 +66,7 @@ router.get("/" , async (req , res , next) => {
         const skip = (page - 1) * limit;
 
         // const post = await Post.findById(req.params.id);
-        const comments = await Comment.find({ post_id: req.body.postId })
+        const comments = await Comment.find({ post_id: req.query.postId })
         .skip(skip)
         .limit(limit)
         .populate({

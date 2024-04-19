@@ -16,10 +16,12 @@ router.get("/all" , async (req , res , next) => {
         // create a Schema 
         const Schema = Joi.object().keys({
             userId : Joi.string().required(),
+            page : Joi.number(),
+            limit : Joi.number()
         });
 
         // validate body data using the Schema
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // check if the body data has a problem
         if (ValidateError.error) {
@@ -30,12 +32,12 @@ router.get("/all" , async (req , res , next) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if the user id in body equal the id in token or not
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid User Data ..." , 403));
         }
 
         // getting the user by his id
-        const user = await User.findById(req.body.userId);
+        const user = await User.findById(req.query.userId);
 
         // check if the user exists
         if (!user) {
@@ -60,10 +62,10 @@ router.get("/all" , async (req , res , next) => {
         users = await Promise.all(users.map(async (ele) => {
 
             // getting the user target requests
-            let targetRequest = await Request.find({ sender: ele._id, future: req.body.userId });
+            let targetRequest = await Request.find({ sender: ele._id, future: req.query.userId });
 
             // getting the user requests
-            let userRequest = await Request.find({ sender: req.body.userId, future: ele._id });
+            let userRequest = await Request.find({ sender: req.query.userId, future: ele._id });
 
             // check if the user target has a request
             if (targetRequest.length > 0) {
@@ -72,7 +74,7 @@ router.get("/all" , async (req , res , next) => {
             } else if (userRequest.length > 0) {
                 ele.friendStatus = "pending_user";
                 // check if the user ele friends array the user id or not
-            } else if (!ele.friends.includes(req.body.userId)) {
+            } else if (!ele.friends.includes(req.query.userId)) {
                 ele.friendStatus = "not-friends";
             } 
 

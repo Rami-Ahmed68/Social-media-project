@@ -7,7 +7,6 @@ dotenv.config({ path : "../../../confige.env" });
 
 const User = require("../../models/user/register");
 const Group = require("../../models/group/createGroup");
-const Post = require("../../models/post/post");
 const ApiErrors = require("../../utils/apiErrors");
 const VerifyTokenData = require("../../utils/verifyTokenData");
 
@@ -22,7 +21,7 @@ router.get("/" , async (req , res , next) => {
         });
 
         // validate body data using Schema
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // check if the body data has a problem retuen error with : ( message : ValidateError.error , status : 400 ) 
         if (ValidateError.error) {
@@ -33,12 +32,12 @@ router.get("/" , async (req , res , next) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if the user id equal token id
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid User Data ..." , 401));
         }
 
         // getting the user
-        const user = await User.findById(req.body.userId);
+        const user = await User.findById(req.query.userId);
 
         // check if the user exists
         if (!user) {
@@ -46,7 +45,7 @@ router.get("/" , async (req , res , next) => {
         }
 
         // getting the group by his id 
-        const group = await Group.findById(req.body.groupId).populate("saved");
+        const group = await Group.findById(req.query.groupId).populate("saved");
 
         // check if the group exists
         if (!group) {

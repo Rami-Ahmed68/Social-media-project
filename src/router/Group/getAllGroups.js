@@ -16,7 +16,7 @@ router.get("/" , async (req , res , next) => {
         });
 
         // Validate body data with Schema
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // check if the body data has a problem
         if (ValidateError.error) {
@@ -27,12 +27,12 @@ router.get("/" , async (req , res , next) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if the user id equal token id
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid User Data ..." , 401));
         }
 
         // getting the user 
-        const Groups = await Group.find({ created_by : req.body.userId }).populate("saved");
+        const Groups = await Group.find({ created_by : req.query.userId }).populate("saved");
 
         // create a result
         const result = {
