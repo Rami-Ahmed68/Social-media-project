@@ -88,7 +88,7 @@ router.get("/" , async (req , res , next) => {
         // create result 
         const result = {
             "posts_length" : posts.length,
-            "posts" : _.pick(posts , ['_id' , 'title' , 'created_at' , 'created_by' , 'images' , 'comments' , 'likes' , 'like_type' , 'saved'])
+            "posts" : posts
         }
 
         // send the response to user
