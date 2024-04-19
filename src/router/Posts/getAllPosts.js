@@ -55,7 +55,7 @@ router.get("/" , async (req , res , next) => {
         const skip = ( page - 1 ) * limit;
 
         // Getting posts in database
-        const posts = await Post.find().skip(skip).limit(limit).populate([
+        const posts = await Post.find().skip(skip).limit(limit).select().populate([
     {
       path: "likes",
       select: "_id user_id reaction_type",
