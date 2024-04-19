@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Joi = require("joi");
+const _ = require("lodash");
 const dotenv = require("dotenv");
 dotenv.config({ path : "../../../confige.env"});
 
@@ -87,7 +88,7 @@ router.get("/" , async (req , res , next) => {
         // create result 
         const result = {
             "posts_length" : posts.length,
-            "posts" : posts
+            "posts" : _.pick(posts , ['_id' , 'title' , 'created_at' , 'created_by' , 'images' , 'comments' , 'likes' , 'like_type' , 'saved'])
         }
 
         // send the response to user
