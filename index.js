@@ -23,8 +23,6 @@ app.use(cors({
     origin: "*",
     methods: "GET,PUT,POST,DELETE",
 }));
->>>>>>> 84ac0291fdcd5164d3d032b2457f6ebc68f8846f
-
 
 // ------ run delete notifications function every hour start ------
 setInterval(AutoDeleteNotifications , 3600000);
