@@ -61,7 +61,7 @@ router.get("/" , async (req , res , next) => {
       select: "_id user_id reaction_type",
     },
     {
-      path: "author", // Populate the 'author' field
+      path: "created_by", // Populate the 'author' field
       select: "_id name avatar", // Select the desired fields from the author's document
     },
   ]);
