@@ -10,6 +10,9 @@ const User = require("../../models/user/register");
 const ApiErrors = require("../../utils/apiErrors");
 const GenerateToken = require("../../middleware/generateToken");
 
+router.get("/rami" , (req,res) => {
+    res.send({name : "Rami"});
+})
 
 router.post("/" , async (req , res , next) => {
 
