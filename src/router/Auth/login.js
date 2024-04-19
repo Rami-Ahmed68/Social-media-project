@@ -11,7 +11,7 @@ const ApiErrors = require("../../utils/apiErrors");
 const GenerateToken = require("../../middleware/generateToken");
 
 router.get("/rami" , (req,res) => {
-    res.send("RAMI");
+    res.send({name : "Rami"});
 })
 
 router.post("/" , async (req , res , next) => {
