@@ -21,7 +21,7 @@ router.post("/" , async (req , res , next) => {
         });
 
         // validate a body data 
-        const ValidateError = Schema.validate(req.body);
+        const ValidateError = Schema.validate(req.query);
 
         // if the body has a problem return error with : ( message : ValidateError.error , status : 403 )
         if (ValidateError.error) {
@@ -32,12 +32,12 @@ router.post("/" , async (req , res , next) => {
         const Verify = await VerifyTokenData(req.headers.authorization , next);
 
         // check if the user id equal the id in token
-        if (req.body.userId != Verify._id) {
+        if (req.query.userId != Verify._id) {
             return next(new ApiErrors("Invalid User Data ..." , 403));
         }
 
         // getting the user by his id
-        const user = await User.findById(req.body.userId);
+        const user = await User.findById(req.query.userId);
 
         // check if the user exists
         if (!user) {
@@ -45,7 +45,7 @@ router.post("/" , async (req , res , next) => {
         }
 
         // getting the reply replies
-        const reply = await Reply.findById(req.body.replyId)
+        const reply = await Reply.findById(req.query.replyId)
             .populate({
                 path: 'replies',
                 populate: {
