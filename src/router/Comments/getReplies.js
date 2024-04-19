@@ -10,7 +10,7 @@ const Reply = require("../../models/comment/replyComment");
 const ApiErrors = require("../../utils/apiErrors");
 const VerifyTokenData = require("../../utils/verifyTokenData");
 
-router.post("/" , async (req , res , next) => {
+router.get("/" , async (req , res , next) => {
 
     try {
 
