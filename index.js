@@ -11,10 +11,10 @@ const Global = require("./src/middleware/error");
 const AutoDeleteNotifications = require("./src/middleware/autoDeleteNotifications");
 
 const cors = require("cors");
-const corsOptions = {
+app.use(cors({
     origin: "*",
     methods: "GET,PUT,POST,DELETE",
-};
+}));
 
 
 // ------ run delete notifications function every hour start ------
