@@ -55,12 +55,16 @@ router.get("/" , async (req , res , next) => {
         const skip = ( page - 1 ) * limit;
 
         // Getting posts in database
-        const posts = await Post.find().skip(skip).limit(limit).populate(
-            {
-                path : "likes" ,
-                select : "_id user_id reaction_type"
-            }
-        );
+        const posts = await Post.find().skip(skip).limit(limit).populate([
+    {
+      path: "likes",
+      select: "_id user_id reaction_type",
+    },
+    {
+      path: "author", // Populate the 'author' field
+      select: "_id name avatar", // Select the desired fields from the author's document
+    },
+  ]);
 
         // add like type to post whene user want the post
         posts.forEach(post => {
