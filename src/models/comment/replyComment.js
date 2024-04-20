@@ -35,7 +35,7 @@ const reply = new mongoose.Schema({
     }],
     created_at : {
         type : Date,
-        defualt : new Date()
+        default : new Date()
     },
 });
 
