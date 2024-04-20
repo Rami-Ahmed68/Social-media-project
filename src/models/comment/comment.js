@@ -22,7 +22,7 @@ const comment = new mongoose.Schema({
     },
     created_at : {
         type : Date,
-        defualt : new Date()
+        default : new Date()
     },
     replies : [{
         type : mongoose.Schema.Types.ObjectId,
