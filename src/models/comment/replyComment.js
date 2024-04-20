@@ -32,7 +32,11 @@ const reply = new mongoose.Schema({
     replies : [{
         type : mongoose.Schema.Types.ObjectId,
         ref : "replie"
-    }]
+    }],
+    created_at : {
+        type : Date,
+        defualt : new Date()
+    },
 });
 
 const Reply = mongoose.model("replie" , reply);
