@@ -56,7 +56,7 @@ router.get("/" , async ( req , res , next ) => {
 
         // getting the post likes
         const postLikes = await Like.find({ post_id : req.query.postId }).populate({
-            path : "user_id",
+            path : "liked_by",
             select : "_id name avatar"
         });
 
@@ -64,7 +64,7 @@ router.get("/" , async ( req , res , next ) => {
         const result = {
             "message" :  postLikes.length > 0 ?  `this post has a ${postLikes.length} like` : "this post hasn't any likes",
             "doc_length" : postLikes.length,
-            "likes" : postLikes.map(like => _.pick(like , ['_id' , 'liked_at' , 'reaction_type'  , 'post_id' , 'user_id']))
+            "likes" : postLikes.map(like => _.pick(like , ['_id' , 'liked_at' , 'reaction_type'  , 'post_id' , 'liked_by']))
         }
 
         // send response 
