@@ -62,7 +62,7 @@ router.post("/" , async ( req , res , next ) => {
 
         // create like data 
         const like = new Like({
-            user_id : req.body.userId,
+            liked_by : req.body.userId,
             post_id : req.body.postId,
             reaction_type : req.body.reactionType
         });
