@@ -5,7 +5,7 @@ const like = new mongoose.Schema({
         type : Date,
         default : new Date()
     },
-    user_id : {
+    liked_by : {
         type : mongoose.Schema.Types.ObjectId,
         ref : "user",
         required : true,
