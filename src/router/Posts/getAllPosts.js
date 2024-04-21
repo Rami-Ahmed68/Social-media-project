@@ -70,7 +70,7 @@ router.get("/" , async (req , res , next) => {
         // add like type to post whene user want the post
         posts.forEach(post => {
             post.likes.forEach(like => {
-                if (like.user_id == Verify._id) {
+                if (like.liked_by == Verify._id) {
                     post.like_type = like.reaction_type
                 }
             })
