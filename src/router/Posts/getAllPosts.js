@@ -59,7 +59,7 @@ router.get("/" , async (req , res , next) => {
         const posts = await Post.find().skip(skip).limit(limit).select().populate([
     {
       path: "likes",
-      select: "_id user_id reaction_type",
+      select: "_id liked_by reaction_type",
     },
     {
       path: "created_by", // Populate the 'author' field
