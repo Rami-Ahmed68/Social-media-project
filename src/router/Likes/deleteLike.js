@@ -21,7 +21,7 @@ router.delete("/" , async ( req , res , next ) => {
             userId : Joi.string().required(),
             likeId : Joi.string().required()
         });
-
+res.send(req.userId);
         // Validate body data
         const ValidateError = Schema.validate(req.body);
 
