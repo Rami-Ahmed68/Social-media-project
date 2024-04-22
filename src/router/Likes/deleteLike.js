@@ -83,7 +83,7 @@ router.delete("/" , async ( req , res , next ) => {
         const notification = await Nofitications.find({ notification_id : like.id });
 
         // delete nofitication
-        await Nofitications.findByIdAndDelete(notification[0]._id);
+        await Nofitications.findByIdAndDelete(notification[0].id);
 
         // getting the notification author
         const notificationTarget = await User.findById(notification[0].notification_target);
