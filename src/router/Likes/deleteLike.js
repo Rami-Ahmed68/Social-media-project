@@ -57,7 +57,7 @@ router.delete("/" , async ( req , res , next ) => {
 
         // check if user id not equal like user_id
         if (like.liked_by != Verify._id) {
-            return next(new ApiErrors("Unauthorized to delete this like" , 403));
+            return next(new ApiErrors("Unauthorized to delete this like ..." , 403));
         }
 
         // delete like
@@ -68,7 +68,7 @@ router.delete("/" , async ( req , res , next ) => {
 
         // check if the post not found return error with ( message : Invalide post Id is required , status : 404 )
         if (!post) {
-            return next(new ApiErrors("Invalide post Id is required" , 404));
+            return next(new ApiErrors("Invalide post Id is required ..." , 404));
         }
 
         // delete like id from post's likes array 
@@ -80,7 +80,7 @@ router.delete("/" , async ( req , res , next ) => {
         await post.save();
 
         // getting nofitication
-        const notification = await Nofitications.find({ notification_id : like._id });
+        const notification = await Nofitications.find({ notification_id : like.id });
 
         // delete nofitication
         await Nofitications.findByIdAndDelete(notification[0]._id);
