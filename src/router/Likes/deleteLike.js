@@ -56,7 +56,7 @@ router.delete("/" , async ( req , res , next ) => {
         }
 
         // check if user id not equal like user_id
-        if (like.user_id != Verify._id) {
+        if (like.liked_by != Verify._id) {
             return next(new ApiErrors("Unauthorized to delete this like" , 403));
         }
 
