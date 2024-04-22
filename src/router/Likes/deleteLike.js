@@ -80,11 +80,11 @@ router.delete("/" , async ( req , res , next ) => {
         await post.save();
 
         // getting nofitication
-        const notification = await Nofitications.find({ notification_id : like.id });
+        const notification = await Nofitications.find({ notification_id : like._id });
 
         // delete nofitication
         if (notification.length > 0) {
-            await Nofitications.findByIdAndDelete(notification[0].id);
+            await Nofitications.findByIdAndDelete(notification[0]._id);
         }
 
         // getting the notification author
