@@ -29,8 +29,8 @@ const post = new mongoose.Schema({
             default : []
         }],
     like_type : {
-        type : String,
-        default : ""
+        type : Object,
+        default : {}
     },
     isSaved : {
         type : Boolean,
