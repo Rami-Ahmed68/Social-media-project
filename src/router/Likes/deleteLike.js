@@ -82,6 +82,12 @@ router.delete("/" , async ( req , res , next ) => {
         // getting nofitication
         const notification = await Nofitications.find({ notification_id : like._id });
 
+                 // delete nofitication
+        if (notification.length > 0) {
+            return notification
+            await Nofitications.findByIdAndDelete(notification[0]._id);
+        }
+        
         // getting the notification author
         const notificationTarget = await User.findById(notification[0].notification_target);
 
@@ -90,12 +96,6 @@ router.delete("/" , async ( req , res , next ) => {
 
         // save the notification target
         await notificationTarget.save();
-
-         // delete nofitication
-        if (notification.length > 0) {
-            return notification
-            await Nofitications.findByIdAndDelete(notification[0]._id);
-        }
 
         // create result
         const result = {
