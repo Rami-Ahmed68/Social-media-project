@@ -89,23 +89,23 @@ router.delete("/" , async ( req , res , next ) => {
 
         return res.send(notification)
         
-        // getting the notification author
-        const notificationTarget = await User.findById(notification[0].notification_target);
+        // // getting the notification author
+        // const notificationTarget = await User.findById(notification[0].notification_target);
 
-        // delete nofitication id from user nofitications array
-        notificationTarget.nofitications = notificationTarget.nofitications.filter(id => id != notification[0].id );
+        // // delete nofitication id from user nofitications array
+        // notificationTarget.nofitications = notificationTarget.nofitications.filter(id => id != notification[0].id );
 
-        // save the notification target
-        await notificationTarget.save();
+        // // save the notification target
+        // await notificationTarget.save();
 
-        // create result
-        const result = {
-            "message" : "Like deleted successfully",
-            "like" : like
-        }
+        // // create result
+        // const result = {
+        //     "message" : "Like deleted successfully",
+        //     "like" : like
+        // }
 
-        // send response with status code 200
-        res.status(200).send(result);
+        // // send response with status code 200
+        // res.status(200).send(result);
 
     } catch (error) {
         return next(new ApiErrors(error , 500))
