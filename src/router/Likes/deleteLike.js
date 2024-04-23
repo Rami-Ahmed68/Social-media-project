@@ -91,10 +91,11 @@ router.delete("/" , async ( req , res , next ) => {
 
             // set the author value
             author = await User.findById(notification[0].notification_target);
+
+            // delete nofitication id from user nofitications array
+            author.nofitications = author.nofitications.filter(id => id != notification[0].id );
         }
 
-        // delete nofitication id from user nofitications array
-        author.nofitications = author.nofitications.filter(id => id != notification[0].id );
 
         // save the author
         await author.save();
