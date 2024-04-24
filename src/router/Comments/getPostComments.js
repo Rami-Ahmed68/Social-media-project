@@ -79,7 +79,7 @@ router.get("/" , async (req , res , next) => {
                 path: "replyed_by",
                 select: "_id name avatar"
             }
-        });
+        }).sort({created_at : -1});
         
         if (!comments) {
             return next(new ApiErrors("No comments" , 404));
