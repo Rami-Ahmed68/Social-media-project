@@ -30,7 +30,7 @@ const post = new mongoose.Schema({
         }],
     like_type : {
         type : Object,
-        default : {}
+        default : ""
     },
     isSaved : {
         type : Boolean,
