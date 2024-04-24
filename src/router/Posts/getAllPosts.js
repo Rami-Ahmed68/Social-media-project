@@ -73,7 +73,7 @@ router.get("/" , async (req , res , next) => {
                 if (post.likes.length > 0 && like.liked_by == Verify._id) {
                     post.like_type = {reaction_type : like.reaction_type , likeId : like.id}
                 } else {
-                    post.like_type = {reaction_type : "" , likeId : like.id}
+                    post.like_type = ""
                 }
             })
         })
