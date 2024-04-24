@@ -72,6 +72,8 @@ router.get("/" , async (req , res , next) => {
             post.likes.forEach(like => {
                 if (like.liked_by == Verify._id) {
                     post.like_type = {reaction_type : like.reaction_type , likeId : like.id}
+                } else {
+                    post.like_type = ""
                 }
             })
         })
