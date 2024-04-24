@@ -90,7 +90,7 @@ router.get("/" , async (req , res , next) => {
         // create result 
         const result = {
             "posts_length" : posts.length,
-            "posts" : posts
+            "posts" : posts.map(post => _.pick(post , ['_id' , 'title' , 'created_at' , 'created_by' , 'images' , 'comments' , 'likes' , 'like_type' , 'saved' , 'isSaved']))
         }
 
         // send the response to user
