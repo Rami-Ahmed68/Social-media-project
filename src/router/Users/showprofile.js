@@ -45,7 +45,7 @@ router.get("/" , async ( req , res  , next ) => {
         // create result to send it in response
         const result = {
             "message" : `Welcome back ${user.name}`,
-            "user_porfile" : _.pick(user , ['_id' , 'name' , 'avatar' , 'age' , 'joined_at' , 'nofitications' , 'posts' , 'friendship_requests'])
+            "user_porfile" : _.pick(user , ['_id' , 'name' , 'avatar' , 'age' , 'joined_at' , 'nofitications' , 'posts' , 'friendship_requests' , "friends"])
         }
 
         // send response
