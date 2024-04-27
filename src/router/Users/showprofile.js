@@ -38,8 +38,7 @@ router.get("/" , async ( req , res  , next ) => {
         const user = await User.findById(Verify._id).populate({
             path : "posts",
            populate : {
-              path: "likes",
-              select: "_id liked_by reaction_type",
+              path: "likes"
             },
             populate : {
                     path : "created_by",
