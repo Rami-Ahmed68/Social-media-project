@@ -35,7 +35,12 @@ router.get("/" , async ( req , res  , next ) => {
         }
 
         // getting the user by id
-        const user = await User.findById(Verify._id).populate({
+        const user = await User.findById(Verify._id).populate([
+            {
+                path : "friends",
+                select : "_id name avatar"
+            },
+            {
             path : "posts",
             populate : ([
                 {
@@ -45,13 +50,10 @@ router.get("/" , async ( req , res  , next ) => {
                 {
                   path: "created_by", // Populate the 'author' field
                   select: "_id name avatar", // Select the desired fields from the author's document
-                },
-                {
-                    path : "friends",
-                    select : "_id name avatar"
                 }
               ])
-        });
+        }
+        ]);
 
         // add like type if the like author id is equal the user id
             user.posts.forEach(post => {
