@@ -42,7 +42,8 @@ router.get("/" , async ( req , res  , next ) => {
                 select : "_id name avatar"
              },
             populate : {
-              path: "likes"
+                path: "likes",
+                select: "_id liked_by reaction_type"
             },
         });
 
