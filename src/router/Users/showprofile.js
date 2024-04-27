@@ -35,28 +35,19 @@ router.get("/" , async ( req , res  , next ) => {
         }
 
         // getting the user by id
-        // const user = await User.findById(Verify._id).populate({
-        //     path : "posts",
-        //     populate : {
-        //      path : "created_by",
-        //         select : "_id name avatar"
-        //      },
-        //     populate : {
-        //         path: "likes",
-        //         select: "_id liked_by reaction_type"
-        //     },
-        // });
-
         const user = await User.findById(Verify._id).populate({
-  path: "posts",
-  populate: {
-    path: "created_by",
-    select: "_id name avatar"
-  }
-}).populate({
-  path: "likes",
-  select: "_id reaction_type"
-});
+            path : "posts",
+            populate : ([
+                {
+                  path: "likes",
+                  select: "_id liked_by reaction_type",
+                },
+                {
+                  path: "created_by", // Populate the 'author' field
+                  select: "_id name avatar", // Select the desired fields from the author's document
+                },
+              ])
+        });
 
         // check if the user exists
         if (!user) {
