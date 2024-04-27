@@ -37,13 +37,13 @@ router.get("/" , async ( req , res  , next ) => {
         // getting the user by id
         const user = await User.findById(Verify._id).populate({
             path : "posts",
-           populate : {
+            populate : {
+             path : "created_by",
+                select : "_id name avatar"
+             },
+            populate : {
               path: "likes"
             },
-            populate : {
-                    path : "created_by",
-                    select : "_id name avatar"
-                }
         });
 
         // check if the user exists
