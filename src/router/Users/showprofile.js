@@ -50,15 +50,13 @@ router.get("/" , async ( req , res  , next ) => {
         });
 
         // add like type if the like author id is equal the user id
-        user.forEach(user => {
             user.posts.forEach(post => {
                 post.likes.forEach(like => {
                     if (like.liked_by == Verify._id) {
                         like.like_type = {reaction_type : like.reaction_type , likeId : like._id}
                     }
                  })
-            })
-        });
+            });
 
         // check if the user exists
         if (!user) {
