@@ -52,6 +52,8 @@ router.post("/" , async ( req , res , next ) => {
             return next(new ApiErrors("You Can't add more than one like" , 409));
         }
 
+        return oldLike;
+
         // getting the user by his id
         const user = await User.findById(Verify._id);
 
