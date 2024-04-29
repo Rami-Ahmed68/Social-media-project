@@ -99,10 +99,13 @@ router.put("/" , uapload , async (req , res , next) => {
             }
         } , { new : true });
 
+        // generate token
+        const token = GenerateToken(up._id , up.email)
+
         // create result to send it in response
         const result = {
             "message" : "User Data Updated Successfully",
-            "user_info" : _.pick(up , ['_id' , 'avatar' , 'name' , 'age' , 'email' , '_id' , 'joined_at'])
+            "user_info" : _.pick(up , ['_id' , 'avatar' , 'name' , 'age' , 'email' , '_id' , 'joined_at' , 'token'])
         }
 
         // send the response
