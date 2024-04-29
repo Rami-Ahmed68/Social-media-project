@@ -22,8 +22,8 @@ router.post("/" , async ( req , res , next ) => {
             reactionType : Joi.string().min(3).max(5).required()
         });
 
-        // validate the query using Joi validatetion
-        const validateErrors = Schema.validate(req.query);
+        // validate the body using Joi validatetion
+        const validateErrors = Schema.validate(req.body);
 
         // check if the validate has a problem return error with ( message : validateErrors , status : 400 ) 
         if (validateErrors.error) {
@@ -33,12 +33,12 @@ router.post("/" , async ( req , res , next ) => {
         // extract the data from token
         const Verify = await VerifyTokenData(req.headers.authorization , next);
         
-        if (Verify._id != req.query.userId) {
+        if (Verify._id != req.body.userId) {
             return next(new ApiErrors("Invalid User Data ..." , 403));
         }
 
         // getting the post by id
-        const post = await Post.findById(req.query.postId);
+        const post = await Post.findById(req.body.postId);
 
         if (!post) {
             return next(new ApiErrors("The Post Not Found ..." , 404));
