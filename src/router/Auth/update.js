@@ -15,6 +15,7 @@ const HashingPassword = require("../../middleware/hashPassword");
 const cloudinaryRemove = require("../../utils/deleteCloudinary");
 const cloudinaryUploading = require("../../utils/uploadCloudinary");
 const VerifyTokenData = require("../../utils/verifyTokenData");
+const GenerateToken = require("../../middleware/generateToken");
 
 
 router.put("/" , uapload , async (req , res , next) => {
@@ -105,7 +106,10 @@ router.put("/" , uapload , async (req , res , next) => {
         // create result to send it in response
         const result = {
             "message" : "User Data Updated Successfully",
-            "user_info" : _.pick(up , ['_id' , 'avatar' , 'name' , 'age' , 'email' , '_id' , 'joined_at' , 'token'])
+            "user_info" : {
+                "data" : _.pick(up , ['_id' , 'avatar' , 'name' , 'age' , 'email' , '_id' , 'joined_at' , 'token']),
+                "token" : token
+            }
         }
 
         // send the response
