@@ -60,11 +60,11 @@ router.get("/" , async (req , res , next) => {
     {
       path: "likes",
       select: "_id liked_by reaction_type",
-    }
-    //     {
-    //       path: "liked_by", // Populate the 'author' field
-    //       select: "_id name avatar", // Select the desired fields from the author's document
-    //     }
+    },
+    {
+      path: "liked_by", // Populate the 'author' field
+      select: "_id name avatar", // Select the desired fields from the author's document
+     }
   ]).sort({created_at : -1});
 
         // add like type to post whene user want the post
@@ -72,9 +72,7 @@ router.get("/" , async (req , res , next) => {
             post.likes.forEach(like => {
                 if (post.likes.length > 0 && like.liked_by == Verify._id) {
                     post.like_type = {reaction_type : like.reaction_type , likeId : like.id}
-                } else {
-                    post.like_type = ""
-                }
+                } 
             })
         })
 
