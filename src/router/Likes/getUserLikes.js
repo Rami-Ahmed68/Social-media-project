@@ -56,7 +56,7 @@ router.get("/" , async (req , res , next) => {
         const skip = ( page - 1 ) * limit;
 
         // getting the user's likes
-        const likes = await Like.find({ user_id: req.query.userId })
+        const likes = await Like.find({ liked_by : req.query.userId })
         .skip(skip)
         .limit(limit)
         .populate(
