@@ -62,7 +62,7 @@ router.get("/" , async (req , res , next) => {
       select: "_id liked_by reaction_type",
     },
     {
-      path: "liked_by", // Populate the 'author' field
+      path: "created_by", // Populate the 'author' field
       select: "_id name avatar", // Select the desired fields from the author's document
      }
   ]).sort({created_at : -1});
