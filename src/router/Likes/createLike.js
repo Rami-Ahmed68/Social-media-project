@@ -47,7 +47,6 @@ router.post("/" , async ( req , res , next ) => {
         // get old like
         const oldLike = await Like.find({ liked_by : Verify._id , post_id : req.body.postId})
 
-        return res.send(oldLike);
         // if the user has already liked this post
         if (oldLike.length > 0) {
             return next(new ApiErrors("You Can't add more than one like" , 409));
