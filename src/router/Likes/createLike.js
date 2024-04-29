@@ -45,7 +45,7 @@ router.post("/" , async ( req , res , next ) => {
         }
 
         // get old like
-        const oldLike = await Like.find({ liked_by : Verify._id })
+        const oldLike = await Like.find({ liked_by : Verify._id , post_id : req.body.postId})
 
         return res.send(oldLike);
         // if the user has already liked this post
